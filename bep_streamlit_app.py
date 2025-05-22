@@ -90,7 +90,7 @@ with right_col:
     ax.set_xlabel("月")
     ax.grid(True, linestyle="dotted", alpha=0.7)
     ax.legend()
-    ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: f"{int(x):,}"))
+    ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: f"¥{int(x):,}"))
 
     if breakeven_month is not None:
         ax.plot(breakeven_month, breakeven_y, "ro")
