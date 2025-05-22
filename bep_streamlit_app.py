@@ -62,7 +62,7 @@ else:
 with right_col:
     st.markdown(f"<h4 style='font-weight:bold;'>{result_text}</h4>", unsafe_allow_html=True)
 
-    x_fine = np.linspace(0, months, 300)
+    x_fine = np.linspace(1, months, 300)
     sales_line = monthly_sales * x_fine
     bep_line = (initial_cost_yen + monthly_fixed_cost * x_fine) / contribution_margin
 
