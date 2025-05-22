@@ -10,7 +10,7 @@ st.set_page_config(page_title="BEP simulator", layout="wide")
 
 # ページタイトルとロゴ
 st.image("TAIMATSU_logo.png", width=289)
-st.markdown("<h2 style='color:#EE7700;'>損益分岐点シミュレーター</h2>", unsafe_allow_html=True)
+st.markdown("<h2 style='color:#EE7700;'>BEP simulator</h2>", unsafe_allow_html=True)
 
 # 2カラムレイアウト（入力左、グラフ右）
 left_col, right_col = st.columns([1.5, 2])
