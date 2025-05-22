@@ -22,16 +22,16 @@ with left_col:
     salary = st.number_input("人件費（月）[万円]", value=100, step=10)
 
     st.subheader("💰 初期費用内訳")
-    key_money = st.number_input("礼金 [万円]", value=100)
-    deposit = st.number_input("敷金 [万円]", value=100)
-    guarantee_money = st.number_input("保証金 [万円]", value=100)
-    agency_fee = st.number_input("仲介手数料 [万円]", value=100)
-    interior_cost = st.number_input("内装工事費 [万円]", value=100)
-    others = st.number_input("その他費用 [万円]", value=100)
+    key_money = st.number_input("礼金 [万円]", value=100, step=10)
+    deposit = st.number_input("敷金 [万円]", value=100, step=10)
+    guarantee_money = st.number_input("保証金 [万円]", value=100, step=10)
+    agency_fee = st.number_input("仲介手数料 [万円]", value=100, step=10)
+    interior_cost = st.number_input("内装工事費 [万円]", value=100, step=10)
+    others = st.number_input("その他費用 [万円]", value=100, step=10)
 
     st.subheader("📈 シミュレーション設定")
     sales = st.number_input("月間売上 [万円]", value=500, step=10)
-    months = st.slider("シミュレーション月数", 1, 24, value=12)
+    months = st.slider("シミュレーション月数", 1, 24, value=12, step=1)
 
 # 定数
 contribution_margin = 0.64
