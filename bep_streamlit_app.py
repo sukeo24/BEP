@@ -12,7 +12,7 @@ st.set_page_config(page_title="BEP simulator", layout="wide")
 # -----------------------------
 st.markdown(
     "<div style='display: flex; align-items: center;'>"
-    "<img src='https://raw.githubusercontent.com/YOUR_GITHUB_USERNAME/YOUR_REPO/main/TAIMATSU_logo.png' width='200' style='margin-right:20px;'>"
+    "<img src='https://raw.githubusercontent.com/sukeo24/BEP/bep/TAIMATSU_logo.png' width='200' style='margin-right:20px;'>"
     "<div><h1 style='color:#EE7700; margin-bottom:0;'>BEP Simulator</h1>"
     "<p style='color:#555; font-size:16px;'>powered by TAIMATSU</p></div>"
     "</div><hr>",
