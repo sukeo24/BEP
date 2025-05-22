@@ -1,10 +1,8 @@
 import streamlit as st
 import matplotlib.pyplot as plt
-import matplotlib as mpl
 import matplotlib.ticker as ticker
+from my_japanize import japanize
 import numpy as np
-
-mpl.rcParams['font.family'] = ['IPAPGothic', 'Noto Sans CJK JP', 'sans-serif']
 
 st.set_page_config(page_title="損益分岐点シミュレーター", layout="centered")
 
