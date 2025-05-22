@@ -6,7 +6,7 @@ import matplotlib.font_manager as fm
 import numpy as np
 
 # 日本語フォントの読み込み（ローカルファイルとして配置が必要）
-font_path = "NotoSansCJKjp-Regular.otf"
+font_path = "NotoSansJavanese-Regular.otf"
 jp_font = fm.FontProperties(fname=font_path)
 
 st.set_page_config(page_title="損益分岐点シミュレーター", layout="centered")
