@@ -5,7 +5,7 @@ import matplotlib as mpl
 import matplotlib.ticker as ticker
 import numpy as np
 
-mpl.rcParams['font.family'] = 'IPAexGothic' 
+mpl.rcParams['font.family'] = ['IPAexGothic', 'Noto Sans CJK JP', 'sans-serif']
 
 st.set_page_config(page_title="損益分岐点シミュレーター", layout="centered")
 
