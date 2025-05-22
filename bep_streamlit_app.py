@@ -4,6 +4,8 @@ import matplotlib.ticker as ticker
 from my_japanize import japanize
 import numpy as np
 
+japanize()
+
 st.set_page_config(page_title="損益分岐点シミュレーター", layout="centered")
 
 # タイトルとロゴ
