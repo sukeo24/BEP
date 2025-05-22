@@ -5,7 +5,7 @@ from my_japanize import japanize
 import numpy as np
 
 japanize()
-st.set_page_config(page_title="損益分岐点シミュレーター", layout="wide")
+st.set_page_config(page_title="BEP simulator", layout="wide")
 
 # ページタイトルとロゴ
 st.image("TAIMATSU_logo.png", width=289)
