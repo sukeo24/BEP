@@ -18,7 +18,7 @@ with left_col:
     st.subheader("🏠 物件情報")
     rent = st.number_input("家賃（月）[万円]", value=100, step=10)
 
-    st.subheader("👥人件費")
+    st.subheader("👥 人件費")
     salary = st.number_input("人件費（月）[万円]", value=100, step=10)
 
     st.subheader("💰 初期費用内訳")
@@ -38,6 +38,8 @@ contribution_margin = 0.64
 
 # 金額換算（万円 → 円）
 monthly_rent = rent * 10000
+monthly_salary = salary * 10000
+monthly_fixed_cost = monthly_rent + monthly_salary
 monthly_sales = sales * 10000
 
 # 初期費用合計
@@ -47,7 +49,7 @@ initial_cost_yen = sum([
 ]) * 10000
 
 # 損益分岐点計算
-denominator = monthly_sales * contribution_margin - monthly_rent
+denominator = monthly_sales * contribution_margin - monthly_fixed_cost
 if denominator <= 0:
     breakeven_month = None
     breakeven_y = None
@@ -62,7 +64,7 @@ with right_col:
 
     x_fine = np.linspace(0, months, 300)
     sales_line = monthly_sales * x_fine
-    bep_line = (initial_cost_yen + monthly_rent * x_fine) / contribution_margin
+    bep_line = (initial_cost_yen + monthly_fixed_cost * x_fine) / contribution_margin
 
     fig, ax = plt.subplots(figsize=(8, 5), dpi=100)
     ax.plot(x_fine, sales_line, label="予想累積売上", color="#1f77b4", linewidth=2)
@@ -85,4 +87,5 @@ with right_col:
                     fontsize=10)
 
     st.pyplot(fig)
+
 
