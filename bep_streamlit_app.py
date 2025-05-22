@@ -88,7 +88,6 @@ with right_col:
     ax.plot(x_fine, bep_line, label="累積損益分岐点売上", color="#ff7f0e", linestyle="--", linewidth=2)
     ax.set_title("予想売上と回収ラインの比較", fontsize=14)
     ax.set_xlabel("月")
-    ax.set_ylabel("金額（円）")
     ax.grid(True, linestyle="dotted", alpha=0.7)
     ax.legend()
     ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: f"{int(x):,}"))
