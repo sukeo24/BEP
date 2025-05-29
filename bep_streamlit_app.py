@@ -57,9 +57,9 @@ with left_col:
     sales = st.number_input("月間売上（税込）[万円]", value=500, step=10)
     months = st.slider("シミュレーション月数", 1, 24, value=12, step=1)
 
-    with st.expander("🔧 詳細設定"):
-        utilities = st.number_input("光熱費・水道代・通信費（月）[万円]", value=7, step=1)
-        tax_rate_percent = st.number_input("消費税率 [%]", value=10, step=1)
+with st.expander("🔧 詳細設定"):
+    utilities = st.number_input("光熱費・水道代・通信費（月）[万円]", value=7, step=1)
+    tax_rate_percent = st.number_input("消費税率 [%]", value=10, step=1)
 
 # -----------------------------
 # 📊 損益分岐点計算
