@@ -15,11 +15,15 @@ query_params = st.query_params
 current_page = query_params.get("page", ["main"])[0]
 
 # -----------------------------
-# 🎨 サイドバーナビゲーション
+# 🎨 サイドバーナビゲーション（リンク風にする）
 # -----------------------------
 st.sidebar.title("📁 ページ切替")
-selected_page = st.sidebar.selectbox("ページを選択", ["メインページ", "詳細設定"])
-current_page = "main" if selected_page == "メインページ" else "setting"
+if current_page == "main":
+    st.sidebar.markdown("<a href='?page=main' style='font-weight:bold;'>▶ メインページ</a>", unsafe_allow_html=True)
+    st.sidebar.markdown("<a href='?page=setting'>詳細設定</a>", unsafe_allow_html=True)
+elif current_page == "setting":
+    st.sidebar.markdown("<a href='?page=main'>メインページ</a>", unsafe_allow_html=True)
+    st.sidebar.markdown("<a href='?page=setting' style='font-weight:bold;'>▶ 詳細設定</a>", unsafe_allow_html=True)
 
 # -----------------------------
 # 🎨 ヘッダー部（ロゴ＋タイトル＋サブタイトル）
