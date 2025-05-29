@@ -39,8 +39,8 @@ with left_col:
     with st.expander("### 🔧 詳細設定"):
         utilities = st.number_input("光熱費・水道代・通信費（月）[万円]", value=7, step=1)
 
-    monthly_fixed_cost = monthly_rent + monthly_salary + monthly_utilities
-    st.markdown(f"<div style='margin-bottom:10px; font-size:14px; color:#444;'>月間固定費合計: <b>¥{int(monthly_fixed_cost):,}</b></div>", unsafe_allow_html=True)
+    fixed_cost_display = (rent + salary + utilities)
+    st.markdown(f"<div style='margin-bottom:10px; font-size:14px; color:#444;'>月間固定費合計: <b>¥{int(fixed_cost_display * 10000):,}</b></div>", unsafe_allow_html=True)
 
     st.markdown("### 💰 初期費用", unsafe_allow_html=True)
     key_money = st.number_input("礼金 [万円][課税]", value=100, step=10)
@@ -69,6 +69,7 @@ contribution_margin = 0.64
 monthly_rent = rent * tax_rate * 10000
 monthly_salary = salary * 10000
 monthly_utilities = utilities * 10000
+monthly_fixed_cost = monthly_rent + monthly_salary + monthly_utilities
 monthly_sales = sales * 10000
 initial_cost_yen = sum([
     key_money * tax_rate,
