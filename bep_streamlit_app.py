@@ -14,6 +14,11 @@ st.set_page_config(page_title="BEP simulator", layout="wide")
 if "current_page" not in st.session_state:
     st.session_state.current_page = "main"
 
+# クエリパラメータから current_page を判定（session_state にも反映）
+query_params = st.query_params
+current_page = query_params.get("nav", ["main"])[0]
+st.session_state.current_page = current_page
+
 # -----------------------------
 # 🎨 サイドバーナビゲーション（HTMLリンク風＋スタイル適用）
 # -----------------------------
@@ -40,16 +45,13 @@ st.sidebar.markdown("""
 }
 </style>
 <h2 style='margin-bottom: 20px;'>📁 ページ切替</h2>
-<a href='?nav=main' class='nav-link {}'>🏠 メインページ</a>
-<a href='?nav=setting' class='nav-link {}'>⚙️ 詳細設定</a>
-""".format(
-    "active" if st.query_params.get("nav", ["main"])[0] == "main" else "",
-    "active" if st.query_params.get("nav", ["main"])[0] == "setting" else ""
-    ), unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
-# クエリパラメータから current_page を判定（session_state にも反映）
-current_page = st.query_params.get("nav", ["main"])[0]
-st.session_state.current_page = current_page
+nav_main_class = "nav-link active" if current_page == "main" else "nav-link"
+nav_setting_class = "nav-link active" if current_page == "setting" else "nav-link"
+
+st.sidebar.markdown(f"<a href='?nav=main' class='{nav_main_class}'>🏠 メインページ</a>", unsafe_allow_html=True)
+st.sidebar.markdown(f"<a href='?nav=setting' class='{nav_setting_class}'>⚙️ 詳細設定</a>", unsafe_allow_html=True)
 
 # -----------------------------
 # 🎨 ヘッダー部（ロゴ＋タイトル＋サブタイトル）
@@ -71,7 +73,6 @@ st.markdown(
 )
 
 # 以降の処理は current_page に基づいて分岐（元のコードを current_page に合わせて処理）
-
 
 
 if current_page == "setting":
