@@ -31,7 +31,7 @@ with col2:
     if st.button("SETTINGS", key="setting_button"):
         st.session_state.current_page = "setting"
 
-    st.session_state.current_page = params["page"][0]
+    
 
 current_page = st.session_state.current_page
 
