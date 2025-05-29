@@ -8,7 +8,7 @@ japanize()
 st.set_page_config(page_title="BEP simulator", layout="wide")
 
 # -----------------------------
-# 🎨 ヘッダー部（ロゴ＋タイトル＋サブタイトル + 詳細設定）
+# 🎨 ヘッダー部（ロゴ＋タイトル＋サブタイトル）
 # -----------------------------
 header_col1, header_col2 = st.columns([6, 1])
 with header_col1:
@@ -28,10 +28,19 @@ with header_col1:
         unsafe_allow_html=True
     )
 with header_col2:
-    with st.expander("🔧 詳細設定"):
-        utilities = st.number_input("光熱費・水道代・通信費（月）[万円]", value=7, step=1)
-        tax_rate_percent = st.number_input("消費税率 [%]", value=10, step=1)
-
+    st.markdown("""
+        <div style='text-align: right;'>
+        <details>
+            <summary style='cursor: pointer; font-size: 14px;'>🔧 詳細設定</summary>
+            <div style='margin-top: 10px;'>
+        """, unsafe_allow_html=True)
+    utilities = st.number_input("光熱費・水道代・通信費（月）[万円]", value=7, step=1)
+    tax_rate_percent = st.number_input("消費税率 [%]", value=10, step=1)
+    st.markdown("""
+            </div>
+        </details>
+        </div>
+    """, unsafe_allow_html=True)
 
 # -----------------------------
 # 税率の計算
@@ -144,20 +153,3 @@ with right_col:
         """,
         unsafe_allow_html=True
     )
-
-
-    st.markdown(
-        f"""
-        <div style='margin-top: 20px; padding: 12px; background-color: #f9f9f9; border-left: 5px solid #EE7700;'>
-            <p style='margin: 0; color: #333; font-size: 14px;'>
-                ※ このシミュレーションでは <b>原価率を 30%</b>、<b>消費税率を {tax_rate_percent}%</b> に設定しています。<br>
-                <b>課税対象:</b> 家賃、礼金、仲介手数料、内装工事費、その他費用<br>
-                <b>非課税対象:</b> 敷金、保証金<br>
-                また、光熱費・水道代・通信費を含む <b>その他固定費（月額 {utilities}万円）</b> も考慮しています。<br>
-                <b>月間売上は税込金額として入力してください。</b>
-            </p>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-
