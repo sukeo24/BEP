@@ -15,47 +15,36 @@ query_params = st.query_params
 current_page = query_params.get("page", ["main"])[0]
 
 # -----------------------------
-# 🎨 ヘッダー部（ロゴ＋タイトル＋サブタイトル＋ナビ）
+# 🎨 サイドバーナビゲーション
 # -----------------------------
-nav_html = f"""
-<div style='display: flex; align-items: center; justify-content: space-between;'>
-    <div>
-        <h1 style='color:#EE7700; margin-bottom: 0;'>BEP Simulator</h1>
-        <div style='display: flex; align-items: center; margin-top: 0;'>
-            <p style='color:#555; font-size:16px; margin: 0;'>powered by&nbsp;</p>
-            <img src='https://raw.githubusercontent.com/sukeo24/BEP/bep/TAIMATSU_logo.png' width='80' style='margin-bottom: -2px;'>
+st.sidebar.title("📁 ページ切替")
+selected_page = st.sidebar.selectbox("ページを選択", ["メインページ", "詳細設定"])
+current_page = "main" if selected_page == "メインページ" else "setting"
+
+# -----------------------------
+# 🎨 ヘッダー部（ロゴ＋タイトル＋サブタイトル）
+# -----------------------------
+st.markdown(
+    """
+    <div style='display: flex; align-items: center; justify-content: space-between;'>
+        <div>
+            <h1 style='color:#EE7700; margin-bottom: 0;'>BEP Simulator</h1>
+            <div style='display: flex; align-items: center; margin-top: 0;'>
+                <p style='color:#555; font-size:16px; margin: 0;'>powered by&nbsp;</p>
+                <img src='https://raw.githubusercontent.com/sukeo24/BEP/bep/TAIMATSU_logo.png' width='80' style='margin-bottom: -2px;'>
+            </div>
         </div>
     </div>
-    <div style='display:flex; gap:10px;'>
-        <a href='?{urlencode({"page": "main"})}' style='
-            padding:6px 12px;
-            background-color:{"#EE7700" if current_page=="main" else "#eee"};
-            color:{"white" if current_page=="main" else "#333"};
-            border-radius:6px;
-            text-decoration:none;
-            font-weight:bold;
-            font-size:14px;
-        '>🏠 メイン</a>
-        <a href='?{urlencode({"page": "setting"})}' style='
-            padding:6px 12px;
-            background-color:{"#EE7700" if current_page=="setting" else "#eee"};
-            color:{"white" if current_page=="setting" else "#333"};
-            border-radius:6px;
-            text-decoration:none;
-            font-weight:bold;
-            font-size:14px;
-        '>🔧 詳細設定</a>
-    </div>
-</div>
-<hr>
-"""
-st.markdown(nav_html, unsafe_allow_html=True)
+    <hr>
+    """,
+    unsafe_allow_html=True
+)
 
 if current_page == "setting":
     st.title("🔧 詳細設定")
     utilities = st.number_input("光熱費・水道代・通信費（月）[万円]", value=7, step=1, key="utilities")
     tax_rate_percent = st.number_input("消費税率 [%]", value=10, step=1, key="tax_rate_percent")
-    st.markdown("⬅️ 上部のメニューからメインページに戻ってください。")
+    st.markdown("⬅️ サイドバーのメニューからメインページに戻ってください。")
 else:
     utilities = st.session_state.get("utilities", 7)
     tax_rate_percent = st.session_state.get("tax_rate_percent", 10)
