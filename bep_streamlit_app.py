@@ -33,21 +33,21 @@ left_col, right_col = st.columns([1.4, 2])
 
 with left_col:
     st.markdown("### 🏠 物件情報", unsafe_allow_html=True)
-    rent = st.number_input("家賃（月）[万円]", value=100, step=10)
+    rent = st.number_input("家賃（月・課税）[万円]", value=100, step=10)
 
     st.markdown("### 👥 人件費", unsafe_allow_html=True)
     salary = st.number_input("人件費（月）[万円]", value=100, step=10)
 
     st.markdown("### 💰 初期費用内訳", unsafe_allow_html=True)
-    key_money = st.number_input("礼金 [万円]", value=100, step=10)
-    deposit = st.number_input("敷金 [万円]", value=100, step=10)
-    guarantee_money = st.number_input("保証金 [万円]", value=100, step=10)
-    agency_fee = st.number_input("仲介手数料 [万円]", value=100, step=10)
-    interior_cost = st.number_input("内装工事費 [万円]", value=100, step=10)
-    others = st.number_input("その他費用 [万円]", value=100, step=10)
+    key_money = st.number_input("礼金（課税）[万円]", value=100, step=10)
+    deposit = st.number_input("敷金（非課税）[万円]", value=100, step=10)
+    guarantee_money = st.number_input("保証金（非課税）[万円]", value=100, step=10)
+    agency_fee = st.number_input("仲介手数料（課税）[万円]", value=100, step=10)
+    interior_cost = st.number_input("内装工事費（課税）[万円]", value=100, step=10)
+    others = st.number_input("その他費用（課税）[万円]", value=100, step=10)
 
     st.markdown("### 📈 シミュレーション設定", unsafe_allow_html=True)
-    sales = st.number_input("月間売上 [万円]", value=500, step=10)
+    sales = st.number_input("月間売上（税込）[万円]", value=500, step=10)
     months = st.slider("シミュレーション月数", 1, 24, value=12, step=1)
 
     with st.expander("🔧 詳細設定"):
@@ -63,7 +63,7 @@ monthly_rent = rent * tax_rate * 10000
 monthly_salary = salary * 10000
 monthly_utilities = utilities * 10000
 monthly_fixed_cost = monthly_rent + monthly_salary + monthly_utilities
-monthly_sales = sales * 10000
+monthly_sales = sales * 10000  # 売上は税込想定
 initial_cost_yen = sum([
     key_money * tax_rate,
     deposit,
@@ -127,7 +127,8 @@ with right_col:
                 ※ このシミュレーションでは <b>貢献利益率を 64%</b>、<b>消費税率を {tax_rate_percent}%</b> に設定しています。<br>
                 <b>課税対象:</b> 家賃、礼金、仲介手数料、内装工事費、その他費用<br>
                 <b>非課税対象:</b> 敷金、保証金<br>
-                また、光熱費・水道代・通信費を含む <b>その他固定費（月額 {utilities}万円）</b> も考慮しています。
+                また、光熱費・水道代・通信費を含む <b>その他固定費（月額 {utilities}万円）</b> も考慮しています。<br>
+                <b>月間売上は税込金額として入力してください。</b>
             </p>
         </div>
         """,
