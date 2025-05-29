@@ -49,18 +49,24 @@ with left_col:
     st.markdown("### 📈 シミュレーション設定", unsafe_allow_html=True)
     sales = st.number_input("月間売上 [万円]", value=500, step=10)
     months = st.slider("シミュレーション月数", 1, 24, value=12, step=1)
+    tax_rate_percent = st.selectbox("消費税率", options=[0, 5, 8, 10], index=3)
 
 # -----------------------------
 # 💹 損益分岐点計算
 # -----------------------------
+tax_rate = 1 + (tax_rate_percent / 100)
 contribution_margin = 0.64
-monthly_rent = rent * 10000
+monthly_rent = rent * tax_rate * 10000
 monthly_salary = salary * 10000
 monthly_fixed_cost = monthly_rent + monthly_salary
 monthly_sales = sales * 10000
 initial_cost_yen = sum([
-    key_money, deposit, guarantee_money,
-    agency_fee, interior_cost, others
+    key_money * tax_rate,
+    deposit,
+    guarantee_money,
+    agency_fee * tax_rate,
+    interior_cost * tax_rate,
+    others * tax_rate
 ]) * 10000
 
 denominator = monthly_sales * contribution_margin - monthly_fixed_cost
@@ -104,15 +110,13 @@ with right_col:
 
     st.pyplot(fig)
 
-    # -----------------------------
-    # 📝 注釈
-    # -----------------------------
+    # 注釈表示（グラフの下）
     st.markdown(
-        """
+        f"""
         <div style='margin-top: 20px; padding: 12px; background-color: #f9f9f9; border-left: 5px solid #EE7700;'>
             <p style='margin: 0; color: #333; font-size: 14px;'>
-                ※ このシミュレーションでは <b>貢献利益率を 64%</b> に設定しています。<br>
-                実際の事業では、原価率や販管費に応じて変動するためご注意ください。
+                ※ このシミュレーションでは <b>貢献利益率を 64%</b>、<b>消費税率 {tax_rate_percent}%</b>を考慮しています。<br>
+                非課税項目（敷金・保証金など）は税抜き、課税項目は税込みで計算されます。
             </p>
         </div>
         """,
