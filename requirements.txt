@@ -2,4 +2,4 @@ streamlit
 matplotlib
 japanize-matplotlib
 numpy
-plotly
+plotly.graph_objects
