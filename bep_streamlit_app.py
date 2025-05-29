@@ -46,7 +46,7 @@ with left_col:
     salary = st.number_input("人件費（月）[万円]", value=100, step=10)
 
     fixed_cost_display = (rent * tax_rate + salary + utilities)
-    st.markdown(f"<div style='margin-bottom:10px; font-size:14px; color:#444;'>月間固定費合計: <b>¥{int(fixed_cost_display * 10000):,}</b></div>", unsafe_allow_html=True)
+    st.markdown(f"<div style='text-align:right; font-size:14px; color:#444;'>月間固定費合計: <b>¥{int(fixed_cost_display * 10000):,}</b></div>", unsafe_allow_html=True)
 
     st.markdown("### 💰 初期費用内訳", unsafe_allow_html=True)
     key_money = st.number_input("礼金 [万円][課税]", value=100, step=10)
