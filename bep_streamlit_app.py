@@ -41,7 +41,7 @@ tax_rate = 1 + (tax_rate_percent / 100)
 left_col, right_col = st.columns([1.4, 2])
 
 with left_col:
-    st.markdown("### 🏠 物件情報", unsafe_allow_html=True)
+    st.markdown("### 🗓️ 月間固定費", unsafe_allow_html=True)
     rent = st.number_input("家賃（月）[万円][課税]", value=100, step=10)
     salary = st.number_input("人件費（月）[万円]", value=100, step=10)
 
