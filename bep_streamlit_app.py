@@ -42,7 +42,7 @@ else:
     tax_rate_percent = st.session_state.get("tax_rate_percent", 10)
     tax_rate = 1 + (tax_rate_percent / 100)
 
-    left_col, right_col = st.columns([1.4, 2])
+    left_col, right_col = st.columns([1, 3])
 
     with left_col:
         st.markdown("### 🗓️ 月間固定費", unsafe_allow_html=True)
@@ -113,7 +113,7 @@ else:
                 x=[breakeven_month], y=[breakeven_y],
                 mode="markers+text",
                 name="損益分岐点",
-                marker=dict(color="red", size=10),
+                marker=dict(color="red", size=14, line=dict(color="black", width=2)),
                 text=[f"{breakeven_month:.1f}ヶ月<br>¥{int(breakeven_y):,}"],
                 textposition="top center"
             ))
