@@ -103,3 +103,19 @@ with right_col:
                     fontsize=10)
 
     st.pyplot(fig)
+
+# -----------------------------
+# 📝 注釈
+# -----------------------------
+st.markdown(
+    """
+    <div style='margin-top: 20px; padding: 12px; background-color: #f9f9f9; border-left: 5px solid #EE7700;'>
+        <p style='margin: 0; color: #333; font-size: 14px;'>
+            ※ このシミュレーションでは <b>貢献利益率を 64%</b> に設定しています。<br>
+            実際の事業では、原価率や販管費に応じて変動するためご注意ください。
+        </p>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
