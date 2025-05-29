@@ -42,7 +42,7 @@ else:
     tax_rate_percent = st.session_state.get("tax_rate_percent", 10)
     tax_rate = 1 + (tax_rate_percent / 100)
 
-    left_col, right_col = st.columns([1, 3])
+    left_col, right_col = st.columns([1, 2])
 
     with left_col:
         st.markdown("### 🗓️ 月間固定費", unsafe_allow_html=True)
