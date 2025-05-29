@@ -113,8 +113,9 @@ else:
                 x=[breakeven_month], y=[breakeven_y],
                 mode="markers+text",
                 name="損益分岐点",
-                marker=dict(color="red", size=14, line=dict(color="black", width=2)),
+                marker=dict(color="red", size=10),
                 text=[f"{breakeven_month:.1f}ヶ月<br>¥{int(breakeven_y):,}"],
+                textfont=dict(size=16, color="black", family="Arial Black"),
                 textposition="top center"
             ))
 
