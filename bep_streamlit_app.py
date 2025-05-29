@@ -45,7 +45,7 @@ st.sidebar.markdown("""
 """.format(
     "active" if st.query_params.get("nav", ["main"])[0] == "main" else "",
     "active" if st.query_params.get("nav", ["main"])[0] == "setting" else ""
-), unsafe_allow_html=True)
+    ), unsafe_allow_html=True)
 
 # クエリパラメータから current_page を判定（session_state にも反映）
 current_page = st.query_params.get("nav", ["main"])[0]
