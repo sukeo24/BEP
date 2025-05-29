@@ -9,21 +9,21 @@ japanize()
 st.set_page_config(page_title="BEP simulator", layout="wide")
 
 # -----------------------------
-# 🎨 ページ遷移機能（クエリパラメータ）
+# 🎨 ページ遷移ステート管理（セッション）
 # -----------------------------
-query_params = st.query_params
-current_page = query_params.get("page", ["main"])[0]
+if "current_page" not in st.session_state:
+    st.session_state.current_page = "main"
 
 # -----------------------------
-# 🎨 サイドバーナビゲーション（リンク風にする）
+# 🎨 サイドバーナビゲーション（ボタン風リンク）
 # -----------------------------
 st.sidebar.title("📁 ページ切替")
-if current_page == "main":
-    st.sidebar.markdown("<a href='?page=main' style='font-weight:bold;'>▶ メインページ</a>", unsafe_allow_html=True)
-    st.sidebar.markdown("<a href='?page=setting'>詳細設定</a>", unsafe_allow_html=True)
-elif current_page == "setting":
-    st.sidebar.markdown("<a href='?page=main'>メインページ</a>", unsafe_allow_html=True)
-    st.sidebar.markdown("<a href='?page=setting' style='font-weight:bold;'>▶ 詳細設定</a>", unsafe_allow_html=True)
+if st.sidebar.button("▶ メインページ"):
+    st.session_state.current_page = "main"
+if st.sidebar.button("▶ 詳細設定"):
+    st.session_state.current_page = "setting"
+
+current_page = st.session_state.current_page
 
 # -----------------------------
 # 🎨 ヘッダー部（ロゴ＋タイトル＋サブタイトル）
@@ -43,6 +43,10 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+
+# 以降の処理は current_page に基づいて分岐（元のコードを current_page に合わせて処理）
+# ※ current_page の値によって main/setting を分ける処理はすでにあるのでそれを維持
+
 
 if current_page == "setting":
     st.title("🔧 詳細設定")
