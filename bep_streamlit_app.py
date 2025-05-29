@@ -115,10 +115,10 @@ with right_col:
         f"""
         <div style='margin-top: 20px; padding: 12px; background-color: #f9f9f9; border-left: 5px solid #EE7700;'>
             <p style='margin: 0; color: #333; font-size: 14px;'>
-                ※ このシミュレーションでは <b>貢献利益率を 64%</b>、<b>消費税率 {tax_rate_percent}%</b>を考慮しています。<br>
+                ※ このシミュレーションでは <b>貢献利益率を 64%</b>、<b>消費税率 {tax_rate_percent}%</b>に設定しています。<br>
                 <b>課税対象:</b> 家賃、礼金、仲介手数料、内装工事費、その他費用<br>
                 <b>非課税対象:</b> 敷金、保証金<br>
-                それぞれ適切に税込・税抜処理しています。
+                それぞれ適切に税込・税抜で処理しています。
             </p>
         </div>
         """,
