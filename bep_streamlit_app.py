@@ -49,7 +49,7 @@ with left_col:
     st.markdown("### 📈 シミュレーション設定", unsafe_allow_html=True)
     sales = st.number_input("月間売上 [万円]", value=500, step=10)
     months = st.slider("シミュレーション月数", 1, 24, value=12, step=1)
-    tax_rate_percent = st.selectbox("消費税率", options=[0, 5, 8, 10], index=3)
+    tax_rate_percent = st.number_input("消費税率 [%]", value=10, step=1)
 
 # -----------------------------
 # 💹 損益分岐点計算
