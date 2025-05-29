@@ -35,6 +35,8 @@ with left_col:
     st.markdown("### 🗓️ 月間固定費", unsafe_allow_html=True)
     rent = st.number_input("家賃（月）[万円][課税]", value=100, step=10)
     salary = st.number_input("人件費（月）[万円]", value=100, step=10)
+
+    st.markdown(f"<div style='margin-bottom:10px; font-size:14px; color:#444;'>月間固定費合計: <b>¥{int(monthly_fixed_cost):,}</b></div>", unsafe_allow_html=True)
     
     with st.expander("### 🔧 詳細設定"):
         utilities = st.number_input("光熱費・水道代・通信費（月）[万円]", value=7, step=1)
@@ -97,8 +99,6 @@ else:
 # -----------------------------
 with right_col:
     st.markdown(f"<div style='margin-bottom:20px;'>{result_text}</div>", unsafe_allow_html=True)
-
-    st.markdown(f"<div style='margin-bottom:10px; font-size:14px; color:#444;'>月間固定費合計: <b>¥{int(monthly_fixed_cost):,}</b></div>", unsafe_allow_html=True)
 
     x_fine = np.linspace(1, months, 300)
     sales_line = monthly_sales * x_fine
