@@ -16,10 +16,10 @@ if "current_page" not in st.session_state:
 # -----------------------------
 # 🎨 サイドバーナビゲーション（ボタンクリック式）
 # -----------------------------
-st.sidebar.markdown("<h2 style='margin-bottom: 20px;'>📁 ページ切替</h2>", unsafe_allow_html=True)
-if st.sidebar.button("🏠 メインページ", use_container_width=True):
+st.sidebar.markdown("<h2 style='margin-bottom: 20px;'>HOME</h2>", unsafe_allow_html=True)
+if st.sidebar.button("SIMULATOR", use_container_width=True):
     st.session_state.current_page = "main"
-if st.sidebar.button("⚙️ 詳細設定", use_container_width=True):
+if st.sidebar.button("SETTINGS", use_container_width=True):
     st.session_state.current_page = "setting"
 
 current_page = st.session_state.current_page
