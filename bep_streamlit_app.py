@@ -32,13 +32,11 @@ st.markdown(
 left_col, right_col = st.columns([1.4, 2])
 
 with left_col:
-    st.markdown("### 🏠 物件情報", unsafe_allow_html=True)
+    st.markdown("### 🗓️ 月間固定費", unsafe_allow_html=True)
     rent = st.number_input("家賃（月）[万円][課税]", value=100, step=10)
-
-    st.markdown("### 👥 人件費", unsafe_allow_html=True)
     salary = st.number_input("人件費（月）[万円]", value=100, step=10)
 
-    st.markdown("### 💰 初期費用内訳", unsafe_allow_html=True)
+    st.markdown("### 💰 初期費用", unsafe_allow_html=True)
     key_money = st.number_input("礼金 [万円][課税]", value=100, step=10)
     deposit = st.number_input("敷金 [万円]", value=100, step=10)
     guarantee_money = st.number_input("保証金 [万円]", value=100, step=10)
