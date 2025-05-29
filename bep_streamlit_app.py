@@ -27,33 +27,31 @@ st.markdown(
 )
 
 # -----------------------------
+# 🔧 詳細設定（共通）
+# -----------------------------
+with st.expander("🔧 詳細設定"):
+    utilities = st.number_input("光熱費・水道代・通信費（月）[万円]", value=7, step=1)
+    tax_rate_percent = st.number_input("消費税率 [%]", value=10, step=1)
+
+tax_rate = 1 + (tax_rate_percent / 100)
+
+# -----------------------------
 # 2カラムレイアウト
 # -----------------------------
 left_col, right_col = st.columns([1.4, 2])
 
 with left_col:
-    st.markdown("### 🗓️ 月間固定費", unsafe_allow_html=True)
+    st.markdown("### 🏠 物件情報", unsafe_allow_html=True)
     rent = st.number_input("家賃（月）[万円][課税]", value=100, step=10)
     salary = st.number_input("人件費（月）[万円]", value=100, step=10)
-    
-    with st.expander("### 🔧 詳細設定"):
-        utilities = st.number_input("光熱費・水道代・通信費（月）[万円]", value=7, step=1)
 
-    fixed_cost_display = (rent + salary + utilities)
-    st.markdown(f"<div style='margin-bottom:10px; font-size:14px; color:#444;'>月間固定費合計: <b>¥{int(fixed_cost_display * 10000):,}</b></div>", unsafe_allow_html=True)
-
-    st.markdown("### 💰 初期費用", unsafe_allow_html=True)
+    st.markdown("### 💰 初期費用内訳", unsafe_allow_html=True)
     key_money = st.number_input("礼金 [万円][課税]", value=100, step=10)
     deposit = st.number_input("敷金 [万円]", value=100, step=10)
     guarantee_money = st.number_input("保証金 [万円]", value=100, step=10)
     agency_fee = st.number_input("仲介手数料 [万円][課税]", value=100, step=10)
     interior_cost = st.number_input("内装工事費 [万円][課税]", value=100, step=10)
     others = st.number_input("その他費用 [万円][課税]", value=100, step=10)
-
-    with st.expander("### 🔧 詳細設定"):
-        tax_rate_percent = st.number_input("消費税率 [%]", value=10, step=1)
-
-    tax_rate = 1 + (tax_rate_percent / 100)
 
     initial_cost_display = (key_money * tax_rate + deposit + guarantee_money + agency_fee * tax_rate + interior_cost * tax_rate + others * tax_rate)
     st.markdown(f"<div style='text-align:right; font-size:14px;'>初期費用合計（税抜・税込計算後）: <b>¥{int(initial_cost_display * 10000):,}</b></div>", unsafe_allow_html=True)
@@ -101,6 +99,8 @@ else:
 with right_col:
     st.markdown(f"<div style='margin-bottom:20px;'>{result_text}</div>", unsafe_allow_html=True)
 
+    st.markdown(f"<div style='margin-bottom:10px; font-size:14px; color:#444;'>月間固定費合計: <b>¥{int(monthly_fixed_cost):,}</b></div>", unsafe_allow_html=True)
+
     x_fine = np.linspace(1, months, 300)
     sales_line = monthly_sales * x_fine
     bep_line = (initial_cost_yen + monthly_fixed_cost * x_fine) / contribution_margin
@@ -134,9 +134,10 @@ with right_col:
                 <b>課税対象:</b> 家賃、礼金、仲介手数料、内装工事費、その他費用<br>
                 <b>非課税対象:</b> 敷金、保証金<br>
                 また、光熱費・水道代・通信費を含む <b>その他固定費（月額 {utilities}万円）</b> も考慮しています。<br>
-                <b>月間売上は税込金額を入力してください。</b>
+                <b>月間売上は税込金額として入力してください。</b>
             </p>
         </div>
         """,
         unsafe_allow_html=True
     )
+
