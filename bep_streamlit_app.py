@@ -110,7 +110,7 @@ else:
 
         if breakeven_month is not None:
             fig.add_trace(go.Scatter(
-                x=[breakeven_month], y=[f"¥{int(breakeven_y):,}"],
+                x=[breakeven_month], y=[breakeven_y],
                 mode="markers+text",
                 name="損益分岐点",
                 marker=dict(color="red", size=10),
