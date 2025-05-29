@@ -55,7 +55,7 @@ with st.expander("### 🔧 詳細設定", unsafe_allow_html=True):
     initial_cost_display = (key_money * tax_rate + deposit + guarantee_money + agency_fee * tax_rate + interior_cost * tax_rate + others * tax_rate)
     st.markdown(f"<div style='text-align:right; font-size:14px;'>初期費用合計（税抜・税込計算後）: <b>¥{int(initial_cost_display * 10000):,}</b></div>", unsafe_allow_html=True)
 
-    st.markdown("### 📈 シミュレーション設定", unsafe_allow_html=True)
+    st.markdown("### 📈 シミュレーション設定")
     sales = st.number_input("月間売上（税込）[万円]", value=500, step=10)
     months = st.slider("シミュレーション月数", 1, 24, value=12, step=1)
 
