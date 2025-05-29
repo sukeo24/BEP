@@ -15,7 +15,7 @@ if "current_page" not in st.session_state:
     st.session_state.current_page = "main"
 
 # クエリパラメータから current_page を判定（session_state にも反映）
-query_params = st.experimental_get_query_params()
+query_params = st.query_params
 current_page = query_params.get("nav", ["main"])[0]
 st.session_state.current_page = current_page
 
@@ -46,8 +46,8 @@ st.sidebar.markdown("""
 }
 </style>
 <h2 style='margin-bottom: 20px;'>📁 ページ切替</h2>
-<div class='nav-link {"active" if current_page == "main" else ""}' onclick="window.location.search='?nav=main'">🏠 メインページ</div>
-<div class='nav-link {"active" if current_page == "setting" else ""}' onclick="window.location.search='?nav=setting'">⚙️ 詳細設定</div>
+<a href='?nav=main' class='nav-link {"active" if current_page == "main" else ""}'>🏠 メインページ</a>
+<a href='?nav=setting' class='nav-link {"active" if current_page == "setting" else ""}'>⚙️ 詳細設定</a>
 """, unsafe_allow_html=True)
 
 # -----------------------------
