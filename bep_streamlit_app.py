@@ -46,7 +46,7 @@ with left_col:
     interior_cost = st.number_input("内装工事費 [万円][課税]", value=100, step=10)
     others = st.number_input("その他費用 [万円][課税]", value=100, step=10)
 
-with st.expander("### 🔧 詳細設定", unsafe_allow_html=True):
+with st.expander("🔧 詳細設定", unsafe_allow_html=True):
     utilities = st.number_input("光熱費・水道代・通信費（月）[万円]", value=7, step=1)
     tax_rate_percent = st.number_input("消費税率 [%]", value=10, step=1)
 
