@@ -38,8 +38,9 @@ with left_col:
     st.markdown("### 👥 人件費", unsafe_allow_html=True)
     salary = st.number_input("人件費（月）[万円]", value=100, step=10)
 
-    st.markdown("### 💡 その他固定費", unsafe_allow_html=True)
-    utilities = st.number_input("光熱費・水道代・通信費（月）[万円]", value=7, step=1)
+    with st.expander("🔧 詳細設定"):
+        utilities = st.number_input("光熱費・水道代・通信費（月）[万円]", value=7, step=1)
+        tax_rate_percent = st.number_input("消費税率 [%]", value=10, step=1)
 
     st.markdown("### 💰 初期費用内訳", unsafe_allow_html=True)
     key_money = st.number_input("礼金 [万円]", value=100, step=10)
@@ -52,7 +53,6 @@ with left_col:
     st.markdown("### 📈 シミュレーション設定", unsafe_allow_html=True)
     sales = st.number_input("月間売上 [万円]", value=500, step=10)
     months = st.slider("シミュレーション月数", 1, 24, value=12, step=1)
-    tax_rate_percent = st.number_input("消費税率 [%]", value=10, step=1)
 
 # -----------------------------
 # 📊 損益分岐点計算
