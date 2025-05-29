@@ -8,31 +8,34 @@ japanize()
 st.set_page_config(page_title="BEP simulator", layout="wide")
 
 # -----------------------------
-# 🎨 ヘッダー部（ロゴ＋タイトル＋サブタイトル）
+# 🎨 ヘッダー部（ロゴ＋タイトル＋サブタイトル + 詳細設定）
 # -----------------------------
-st.markdown(
-    """
-    <div style='display: flex; align-items: center; justify-content: space-between;'>
-        <div>
-            <h1 style='color:#EE7700; margin-bottom: 0;'>BEP Simulator</h1>
-            <div style='display: flex; align-items: center; margin-top: 0;'>
-                <p style='color:#555; font-size:16px; margin: 0;'>powered by&nbsp;</p>
-                <img src='https://raw.githubusercontent.com/sukeo24/BEP/bep/TAIMATSU_logo.png' width='80' style='margin-bottom: -2px;'>
+header_col1, header_col2 = st.columns([6, 1])
+with header_col1:
+    st.markdown(
+        """
+        <div style='display: flex; align-items: center;'>
+            <div>
+                <h1 style='color:#EE7700; margin-bottom: 0;'>BEP Simulator</h1>
+                <div style='display: flex; align-items: center; margin-top: 0;'>
+                    <p style='color:#555; font-size:16px; margin: 0;'>powered by&nbsp;</p>
+                    <img src='https://raw.githubusercontent.com/sukeo24/BEP/bep/TAIMATSU_logo.png' width='80' style='margin-bottom: -2px;'>
+                </div>
             </div>
         </div>
-    </div>
-    <hr>
-    """,
-    unsafe_allow_html=True
-)
+        <hr>
+        """,
+        unsafe_allow_html=True
+    )
+with header_col2:
+    with st.expander("🔧 詳細設定"):
+        utilities = st.number_input("光熱費・水道代・通信費（月）[万円]", value=7, step=1)
+        tax_rate_percent = st.number_input("消費税率 [%]", value=10, step=1)
+
 
 # -----------------------------
-# 🔧 詳細設定（共通）
+# 税率の計算
 # -----------------------------
-with st.expander("🔧 詳細設定"):
-    utilities = st.number_input("光熱費・水道代・通信費（月）[万円]", value=7, step=1)
-    tax_rate_percent = st.number_input("消費税率 [%]", value=10, step=1)
-
 tax_rate = 1 + (tax_rate_percent / 100)
 
 # -----------------------------
@@ -126,6 +129,22 @@ with right_col:
                     fontsize=10)
 
     st.pyplot(fig)
+
+    st.markdown(
+        f"""
+        <div style='margin-top: 20px; padding: 12px; background-color: #f9f9f9; border-left: 5px solid #EE7700;'>
+            <p style='margin: 0; color: #333; font-size: 14px;'>
+                ※ このシミュレーションでは <b>原価率を 30%</b>、<b>消費税率を {tax_rate_percent}%</b> に設定しています。<br>
+                <b>課税対象:</b> 家賃、礼金、仲介手数料、内装工事費、その他費用<br>
+                <b>非課税対象:</b> 敷金、保証金<br>
+                また、光熱費・水道代・通信費を含む <b>その他固定費（月額 {utilities}万円）</b> も考慮しています。<br>
+                <b>月間売上は税込金額を入力してください。</b>
+            </p>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
 
     st.markdown(
         f"""
