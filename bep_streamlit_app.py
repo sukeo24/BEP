@@ -9,11 +9,29 @@ st.set_page_config(page_title="BEP simulator", layout="wide")
 if "current_page" not in st.session_state:
     st.session_state.current_page = "main"
 
-st.sidebar.markdown("<h2 style='margin-bottom: 20px;'>HOME</h2>", unsafe_allow_html=True)
-if st.sidebar.button("SIMULATOR", use_container_width=True):
-    st.session_state.current_page = "main"
-if st.sidebar.button("SETTINGS", use_container_width=True):
-    st.session_state.current_page = "setting"
+st.markdown("""
+    <style>
+        .orange-button button {
+            background-color: #EE7700 !important;
+            color: white !important;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
+col1, col2 = st.columns([1, 1])
+with col1:
+    if st.button("SIMULATOR", key="main_button"):
+        st.session_state.current_page = "main"
+with col2:
+    if st.button("SETTINGS", key="setting_button"):
+        st.session_state.current_page = "setting"
+
+    st.session_state.current_page = params["page"][0]
 
 current_page = st.session_state.current_page
 
@@ -42,7 +60,7 @@ else:
     tax_rate_percent = st.session_state.get("tax_rate_percent", 10)
     tax_rate = 1 + (tax_rate_percent / 100)
 
-    left_col, right_col = st.columns([1, 2])
+    left_col, right_col = st.columns([1, 3])
 
     with left_col:
         st.markdown("### 🗓️ 月間固定費", unsafe_allow_html=True)
@@ -125,22 +143,6 @@ else:
             yaxis=dict(tickformat=",.0f", tickprefix="¥", gridcolor="lightgray"),
             xaxis=dict(tickformat=".1f"),
             plot_bgcolor="white",
-            legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
-        )
-
-        st.plotly_chart(fig, use_container_width=True)
-
-        st.markdown(
-            f"""
-            <div style='margin-top: 20px; padding: 12px; background-color: #f9f9f9; border-left: 5px solid #EE7700;'>
-                <p style='margin: 0; color: #333; font-size: 14px;'>
-                    ※ このシミュレーションでは <b>原価率を 30%</b>、<b>消費税率を {tax_rate_percent}%</b> に設定しています。<br>
-                    <b>課税対象:</b> 家賃、礼金、仲介手数料、内装工事費、その他費用<br>
-                    <b>非課税対象:</b> 敷金、保証金<br>
-                    また、光熱費・水道代・通信費を含む <b>その他固定費（月額 {utilities}万円）</b> も考慮しています。<br>
-                    <b>月間売上は税込金額を入力してください。</b>
-                </p>
-            </div>
-            """,
-            unsafe_allow_html=True
+            legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+            height=600
         )
