@@ -1,21 +1,14 @@
 import streamlit as st
-import matplotlib.pyplot as plt
-import matplotlib.ticker as ticker
-from my_japanize import japanize
+import plotly.graph_objects as go
 import numpy as np
+from my_japanize import japanize
 
 japanize()
 st.set_page_config(page_title="BEP simulator", layout="wide")
 
-# -----------------------------
-# 🎨 ページ遷移ステート管理（セッション）
-# -----------------------------
 if "current_page" not in st.session_state:
     st.session_state.current_page = "main"
 
-# -----------------------------
-# 🎨 サイドバーナビゲーション（ボタンクリック式）
-# -----------------------------
 st.sidebar.markdown("<h2 style='margin-bottom: 20px;'>HOME</h2>", unsafe_allow_html=True)
 if st.sidebar.button("SIMULATOR", use_container_width=True):
     st.session_state.current_page = "main"
@@ -24,9 +17,6 @@ if st.sidebar.button("SETTINGS", use_container_width=True):
 
 current_page = st.session_state.current_page
 
-# -----------------------------
-# 🎨 ヘッダー部（ロゴ＋タイトル＋サブタイトル）
-# -----------------------------
 st.markdown(
     """
     <div style='display: flex; align-items: center; justify-content: space-between;'>
@@ -42,9 +32,6 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-
-# 以降の処理は current_page に基づいて分岐（元のコードを current_page に合わせて処理）
-
 
 if current_page == "setting":
     st.title("🔧 詳細設定")
@@ -117,26 +104,31 @@ else:
         sales_line = monthly_sales * x_fine
         bep_line = (initial_cost_yen + monthly_fixed_cost * x_fine) / contribution_margin
 
-        fig, ax = plt.subplots(figsize=(8, 5), dpi=100)
-        ax.plot(x_fine, sales_line, label="予想累積売上", color="#1f77b4", linewidth=2)
-        ax.plot(x_fine, bep_line, label="累積損益分岐点売上", color="#ff7f0e", linestyle="--", linewidth=2)
-        ax.set_title("予想売上と回収ラインの比較", fontsize=14)
-        ax.set_xlabel("月")
-        ax.grid(True, linestyle="dotted", alpha=0.7)
-        ax.legend()
-        ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: f"\u00a5{int(x):,}"))
+        fig = go.Figure()
+        fig.add_trace(go.Scatter(x=x_fine, y=sales_line, mode="lines", name="予想累積売上", line=dict(color="#1f77b4", width=3)))
+        fig.add_trace(go.Scatter(x=x_fine, y=bep_line, mode="lines", name="累積損益分岐点売上", line=dict(color="#ff7f0e", width=3, dash="dot")))
 
         if breakeven_month is not None:
-            ax.plot(breakeven_month, breakeven_y, "ro")
-            ax.annotate(f"{breakeven_month:.1f}ヶ月\n\u00a5{int(breakeven_y):,}",
-                        xy=(breakeven_month, breakeven_y),
-                        xytext=(breakeven_month + 0.5, breakeven_y),
-                        textcoords="data",
-                        arrowprops=dict(arrowstyle="->", color="gray"),
-                        bbox=dict(boxstyle="round,pad=0.3", fc="white", ec="gray"),
-                        fontsize=10)
+            fig.add_trace(go.Scatter(
+                x=[breakeven_month], y=[breakeven_y],
+                mode="markers+text",
+                name="損益分岐点",
+                marker=dict(color="red", size=10),
+                text=[f"{breakeven_month:.1f}ヶ月<br>¥{int(breakeven_y):,}"],
+                textposition="top center"
+            ))
 
-        st.pyplot(fig)
+        fig.update_layout(
+            title="予想売上と回収ラインの比較",
+            xaxis_title="月",
+            yaxis_title="金額（¥）",
+            yaxis=dict(tickformat="¥,", gridcolor="lightgray"),
+            xaxis=dict(tickformat=".1f"),
+            plot_bgcolor="white",
+            legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
+        )
+
+        st.plotly_chart(fig, use_container_width=True)
 
         st.markdown(
             f"""
