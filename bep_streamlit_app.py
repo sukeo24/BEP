@@ -17,10 +17,10 @@ if "current_page" not in st.session_state:
 # -----------------------------
 # 🎨 サイドバーナビゲーション（ボタン風リンク）
 # -----------------------------
-st.sidebar.title("📁 ページ切替")
-if st.sidebar.button("▶ メインページ"):
+st.sidebar.title("Home")
+if st.sidebar.button("Simulator"):
     st.session_state.current_page = "main"
-if st.sidebar.button("▶ 詳細設定"):
+if st.sidebar.button("Settings"):
     st.session_state.current_page = "setting"
 
 current_page = st.session_state.current_page
@@ -52,7 +52,6 @@ if current_page == "setting":
     st.title("🔧 詳細設定")
     utilities = st.number_input("光熱費・水道代・通信費（月）[万円]", value=7, step=1, key="utilities")
     tax_rate_percent = st.number_input("消費税率 [%]", value=10, step=1, key="tax_rate_percent")
-    st.markdown("⬅️ サイドバーのメニューからメインページに戻ってください。")
 else:
     utilities = st.session_state.get("utilities", 7)
     tax_rate_percent = st.session_state.get("tax_rate_percent", 10)
