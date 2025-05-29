@@ -46,7 +46,9 @@ with left_col:
     interior_cost = st.number_input("内装工事費 [万円][課税]", value=100, step=10)
     others = st.number_input("その他費用 [万円][課税]", value=100, step=10)
 
-
+with st.expander("### 🔧 詳細設定", unsafe_allow_html=True):
+    utilities = st.number_input("光熱費・水道代・通信費（月）[万円]", value=7, step=1)
+    tax_rate_percent = st.number_input("消費税率 [%]", value=10, step=1)
 
     tax_rate = 1 + (tax_rate_percent / 100)
 
@@ -56,10 +58,6 @@ with left_col:
     st.markdown("### 📈 シミュレーション設定", unsafe_allow_html=True)
     sales = st.number_input("月間売上（税込）[万円]", value=500, step=10)
     months = st.slider("シミュレーション月数", 1, 24, value=12, step=1)
-
-with st.expander("🔧 詳細設定"):
-    utilities = st.number_input("光熱費・水道代・通信費（月）[万円]", value=7, step=1)
-    tax_rate_percent = st.number_input("消費税率 [%]", value=10, step=1)
 
 # -----------------------------
 # 📊 損益分岐点計算
