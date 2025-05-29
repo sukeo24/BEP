@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 from my_japanize import japanize
 import numpy as np
-from urllib.parse import urlencode
 
 japanize()
 st.set_page_config(page_title="BEP simulator", layout="wide")
@@ -14,41 +13,16 @@ st.set_page_config(page_title="BEP simulator", layout="wide")
 if "current_page" not in st.session_state:
     st.session_state.current_page = "main"
 
-# クエリパラメータから current_page を判定（session_state にも反映）
-query_params = st.query_params
-current_page = query_params.get("nav", ["main"])[0]
-st.session_state.current_page = current_page
+# -----------------------------
+# 🎨 サイドバーナビゲーション（ボタンクリック式）
+# -----------------------------
+st.sidebar.markdown("<h2 style='margin-bottom: 20px;'>📁 ページ切替</h2>", unsafe_allow_html=True)
+if st.sidebar.button("🏠 メインページ", use_container_width=True):
+    st.session_state.current_page = "main"
+if st.sidebar.button("⚙️ 詳細設定", use_container_width=True):
+    st.session_state.current_page = "setting"
 
-# -----------------------------
-# 🎨 サイドバーナビゲーション（HTMLリンク風＋スタイル適用＋遷移抑制）
-# -----------------------------
-st.sidebar.markdown("""
-<style>
-.nav-link {
-    display: block;
-    padding: 8px 16px;
-    border-radius: 6px;
-    margin-bottom: 8px;
-    font-weight: normal;
-    text-decoration: none;
-    color: black;
-    background-color: #f0f0f0;
-    transition: 0.2s;
-    cursor: pointer;
-}
-.nav-link:hover {
-    background-color: #ddd;
-}
-.nav-link.active {
-    background-color: #EE7700;
-    color: white;
-    font-weight: bold;
-}
-</style>
-<h2 style='margin-bottom: 20px;'>📁 ページ切替</h2>
-<a href='?nav=main' class='nav-link {"active" if current_page == "main" else ""}'>🏠 メインページ</a>
-<a href='?nav=setting' class='nav-link {"active" if current_page == "setting" else ""}'>⚙️ 詳細設定</a>
-""", unsafe_allow_html=True)
+current_page = st.session_state.current_page
 
 # -----------------------------
 # 🎨 ヘッダー部（ロゴ＋タイトル＋サブタイトル）
