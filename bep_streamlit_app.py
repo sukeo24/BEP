@@ -122,7 +122,7 @@ else:
             title="予想売上と回収ラインの比較",
             xaxis_title="月",
             yaxis_title="金額（¥）",
-            yaxis=dict(tickformat="¥,", gridcolor="lightgray"),
+            yaxis=dict(tickformat=",.0f", tickprefix="¥", gridcolor="lightgray"),
             xaxis=dict(tickformat=".1f"),
             plot_bgcolor="white",
             legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
