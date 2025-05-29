@@ -9,11 +9,23 @@ st.set_page_config(page_title="BEP simulator", layout="wide")
 if "current_page" not in st.session_state:
     st.session_state.current_page = "main"
 
-st.sidebar.markdown("<h2 style='margin-bottom: 20px;'>HOME</h2>", unsafe_allow_html=True)
-if st.sidebar.button("SIMULATOR", use_container_width=True):
-    st.session_state.current_page = "main"
-if st.sidebar.button("SETTINGS", use_container_width=True):
-    st.session_state.current_page = "setting"
+st.markdown("""
+<div style='display:flex; gap: 20px; margin-bottom: 30px;'>
+    <form action="" method="post">
+        <button name="page" value="main" style='padding: 10px 20px; background-color: #EE7700; color: white; border: none; border-radius: 5px; font-size: 16px;'>SIMULATOR</button>
+        <button name="page" value="setting" style='padding: 10px 20px; background-color: #EE7700; color: white; border: none; border-radius: 5px; font-size: 16px;'>SETTINGS</button>
+    </form>
+</div>
+""", unsafe_allow_html=True)
+
+# Handle page switch manually
+from streamlit import session_state as ss
+import streamlit as st
+import urllib.parse
+
+params = st.experimental_get_query_params()
+if "page" in params:
+    st.session_state.current_page = params["page"][0]
 
 current_page = st.session_state.current_page
 
@@ -42,7 +54,7 @@ else:
     tax_rate_percent = st.session_state.get("tax_rate_percent", 10)
     tax_rate = 1 + (tax_rate_percent / 100)
 
-    left_col, right_col = st.columns([1, 2])
+    left_col, right_col = st.columns([1, 3])
 
     with left_col:
         st.markdown("### 🗓️ 月間固定費", unsafe_allow_html=True)
@@ -115,6 +127,7 @@ else:
                 name="損益分岐点",
                 marker=dict(color="red", size=10),
                 text=[f"{breakeven_month:.1f}ヶ月<br>¥{int(breakeven_y):,}"],
+                ,
                 textposition="top center"
             ))
 
@@ -123,6 +136,11 @@ else:
             xaxis_title="月",
             yaxis_title="金額（¥）",
             yaxis=dict(tickformat=",.0f", tickprefix="¥", gridcolor="lightgray"),
+            xaxis=dict(tickformat=".1f"),
+            plot_bgcolor="white",
+            legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+            height=600
+        ),
             xaxis=dict(tickformat=".1f"),
             plot_bgcolor="white",
             legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
