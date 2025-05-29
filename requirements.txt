@@ -2,3 +2,4 @@ streamlit
 matplotlib
 japanize-matplotlib
 numpy
+plotly
