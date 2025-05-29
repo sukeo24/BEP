@@ -15,20 +15,41 @@ if "current_page" not in st.session_state:
     st.session_state.current_page = "main"
 
 # -----------------------------
-# 🎨 サイドバーナビゲーション（クリックで切替）
+# 🎨 サイドバーナビゲーション（HTMLリンク風＋スタイル適用）
 # -----------------------------
-st.sidebar.markdown("<h2 style='margin-bottom: 20px;'>📁 ページ切替</h2>", unsafe_allow_html=True)
-nav_style = "padding:8px 16px; border-radius:6px; display:block; margin-bottom:5px; text-align:left; border:none; width:100%;"
-active_style = "background-color:#EE7700; color:white; font-weight:bold; cursor:pointer;"
-inactive_style = "background-color:#f0f0f0; color:black; cursor:pointer;"
+st.sidebar.markdown("""
+<style>
+.nav-link {
+    display: block;
+    padding: 8px 16px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    font-weight: normal;
+    text-decoration: none;
+    color: black;
+    background-color: #f0f0f0;
+    transition: 0.2s;
+}
+.nav-link:hover {
+    background-color: #ddd;
+}
+.nav-link.active {
+    background-color: #EE7700;
+    color: white;
+    font-weight: bold;
+}
+</style>
+<h2 style='margin-bottom: 20px;'>📁 ページ切替</h2>
+<a href='?nav=main' class='nav-link {}'>🏠 メインページ</a>
+<a href='?nav=setting' class='nav-link {}'>⚙️ 詳細設定</a>
+""".format(
+    "active" if st.query_params.get("nav", ["main"])[0] == "main" else "",
+    "active" if st.query_params.get("nav", ["main"])[0] == "setting" else ""
+), unsafe_allow_html=True)
 
-if st.sidebar.button("🏠 メインページ", key="main_button"):
-    st.session_state.current_page = "main"
-if st.sidebar.button("⚙️ 詳細設定", key="setting_button"):
-    st.session_state.current_page = "setting"
-
-# クエリパラメータの代替でページ表示用ステート変数を再確認
-current_page = st.session_state.current_page
+# クエリパラメータから current_page を判定（session_state にも反映）
+current_page = st.query_params.get("nav", ["main"])[0]
+st.session_state.current_page = current_page
 
 # -----------------------------
 # 🎨 ヘッダー部（ロゴ＋タイトル＋サブタイトル）
@@ -50,7 +71,7 @@ st.markdown(
 )
 
 # 以降の処理は current_page に基づいて分岐（元のコードを current_page に合わせて処理）
-# ※ current_page の値によって main/setting を分ける処理はすでにあるのでそれを維持
+
 
 
 if current_page == "setting":
