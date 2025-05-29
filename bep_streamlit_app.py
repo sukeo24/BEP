@@ -15,16 +15,16 @@ if "current_page" not in st.session_state:
     st.session_state.current_page = "main"
 
 # -----------------------------
-# 🎨 サイドバーナビゲーション（リンクスタイル＋ハイライト）
+# 🎨 サイドバーナビゲーション（クリックで切替）
 # -----------------------------
 st.sidebar.markdown("<h2 style='margin-bottom: 20px;'>📁 ページ切替</h2>", unsafe_allow_html=True)
-nav_style = "padding:8px 16px; border-radius:6px; display:block; margin-bottom:5px; text-decoration:none;"
-active_style = "background-color:#EE7700; color:white; font-weight:bold;"
-inactive_style = "background-color:#f0f0f0; color:black;"
+nav_style = "padding:8px 16px; border-radius:6px; display:block; margin-bottom:5px; text-align:left; border:none; width:100%;"
+active_style = "background-color:#EE7700; color:white; font-weight:bold; cursor:pointer;"
+inactive_style = "background-color:#f0f0f0; color:black; cursor:pointer;"
 
-if st.sidebar.markdown(f"<a href='?page=main' style='{nav_style + (active_style if st.session_state.current_page == 'main' else inactive_style)}'>🏠 メインページ</a>", unsafe_allow_html=True):
+if st.sidebar.button("🏠 メインページ", key="main_button"):
     st.session_state.current_page = "main"
-if st.sidebar.markdown(f"<a href='?page=setting' style='{nav_style + (active_style if st.session_state.current_page == 'setting' else inactive_style)}'>⚙️ 詳細設定</a>", unsafe_allow_html=True):
+if st.sidebar.button("⚙️ 詳細設定", key="setting_button"):
     st.session_state.current_page = "setting"
 
 # クエリパラメータの代替でページ表示用ステート変数を再確認
