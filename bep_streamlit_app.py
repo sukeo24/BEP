@@ -46,16 +46,16 @@ with left_col:
     interior_cost = st.number_input("内装工事費 [万円][課税]", value=100, step=10)
     others = st.number_input("その他費用 [万円][課税]", value=100, step=10)
 
-with st.expander("🔧 詳細設定", unsafe_allow_html=True):
-    utilities = st.number_input("光熱費・水道代・通信費（月）[万円]", value=7, step=1)
-    tax_rate_percent = st.number_input("消費税率 [%]", value=10, step=1)
+    with st.expander("### 🔧 詳細設定"):
+        utilities = st.number_input("光熱費・水道代・通信費（月）[万円]", value=7, step=1)
+        tax_rate_percent = st.number_input("消費税率 [%]", value=10, step=1)
 
     tax_rate = 1 + (tax_rate_percent / 100)
 
     initial_cost_display = (key_money * tax_rate + deposit + guarantee_money + agency_fee * tax_rate + interior_cost * tax_rate + others * tax_rate)
     st.markdown(f"<div style='text-align:right; font-size:14px;'>初期費用合計（税抜・税込計算後）: <b>¥{int(initial_cost_display * 10000):,}</b></div>", unsafe_allow_html=True)
 
-    st.markdown("### 📈 シミュレーション設定")
+    st.markdown("### 📈 シミュレーション設定", unsafe_allow_html=True)
     sales = st.number_input("月間売上（税込）[万円]", value=500, step=10)
     months = st.slider("シミュレーション月数", 1, 24, value=12, step=1)
 
