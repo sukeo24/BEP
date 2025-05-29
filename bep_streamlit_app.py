@@ -69,13 +69,13 @@ initial_cost_yen = sum([
     others * tax_rate
 ]) * 10000
 
-denominator = monthly_sales * contribution_margin - monthly_fixed_cost
-if denominator <= 0:
+denom = monthly_sales * contribution_margin - monthly_fixed_cost
+if denom <= 0:
     breakeven_month = None
     breakeven_y = None
     result_text = "<span style='color:red;'>この条件では損益分岐点売上に達しません。</span>"
 else:
-    breakeven_month = initial_cost_yen / denominator
+    breakeven_month = initial_cost_yen / denom
     breakeven_y = monthly_sales * breakeven_month
     result_text = f"<b>■ ペイできるまで：</b> <span style='color:#EE7700;'>{breakeven_month:.1f}ヶ月</span>"
 
@@ -96,11 +96,11 @@ with right_col:
     ax.set_xlabel("月")
     ax.grid(True, linestyle="dotted", alpha=0.7)
     ax.legend()
-    ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: f"¥{int(x):,}"))
+    ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: f"\u00a5{int(x):,}"))
 
     if breakeven_month is not None:
         ax.plot(breakeven_month, breakeven_y, "ro")
-        ax.annotate(f"{breakeven_month:.1f}ヶ月\n¥{int(breakeven_y):,}",
+        ax.annotate(f"{breakeven_month:.1f}ヶ月\n\u00a5{int(breakeven_y):,}",
                     xy=(breakeven_month, breakeven_y),
                     xytext=(breakeven_month + 0.5, breakeven_y),
                     textcoords="data",
@@ -116,10 +116,11 @@ with right_col:
         <div style='margin-top: 20px; padding: 12px; background-color: #f9f9f9; border-left: 5px solid #EE7700;'>
             <p style='margin: 0; color: #333; font-size: 14px;'>
                 ※ このシミュレーションでは <b>貢献利益率を 64%</b>、<b>消費税率 {tax_rate_percent}%</b>を考慮しています。<br>
-                非課税項目（敷金・保証金など）は税抜き、課税項目は税込みで計算されます。
+                <b>課税対象:</b> 家賃、礼金、仲介手数料、内装工事費、その他費用<br>
+                <b>非課税対象:</b> 敷金、保証金<br>
+                それぞれ適切に税込・税抜処理しています。
             </p>
         </div>
         """,
         unsafe_allow_html=True
     )
-
