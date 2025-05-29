@@ -45,6 +45,9 @@ with left_col:
     rent = st.number_input("家賃（月）[万円][課税]", value=100, step=10)
     salary = st.number_input("人件費（月）[万円]", value=100, step=10)
 
+    fixed_cost_display = (rent * tax_rate + salary + utilities)
+    st.markdown(f"<div style='margin-bottom:10px; font-size:14px; color:#444;'>月間固定費合計: <b>¥{int(fixed_cost_display * 10000):,}</b></div>", unsafe_allow_html=True)
+
     st.markdown("### 💰 初期費用内訳", unsafe_allow_html=True)
     key_money = st.number_input("礼金 [万円][課税]", value=100, step=10)
     deposit = st.number_input("敷金 [万円]", value=100, step=10)
@@ -98,8 +101,6 @@ else:
 # -----------------------------
 with right_col:
     st.markdown(f"<div style='margin-bottom:20px;'>{result_text}</div>", unsafe_allow_html=True)
-
-    st.markdown(f"<div style='margin-bottom:10px; font-size:14px; color:#444;'>月間固定費合計: <b>¥{int(monthly_fixed_cost):,}</b></div>", unsafe_allow_html=True)
 
     x_fine = np.linspace(1, months, 300)
     sales_line = monthly_sales * x_fine
