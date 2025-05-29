@@ -11,7 +11,7 @@ st.set_page_config(page_title="BEP simulator", layout="wide")
 # -----------------------------
 # 🎨 ページ遷移機能（クエリパラメータ）
 # -----------------------------
-query_params = st.experimental_get_query_params()
+query_params = st.query_params
 current_page = query_params.get("page", ["main"])[0]
 
 # -----------------------------
