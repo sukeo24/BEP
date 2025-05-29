@@ -81,7 +81,12 @@ if denom <= 0:
 else:
     breakeven_month = initial_cost_yen / denom
     breakeven_y = monthly_sales * breakeven_month
-    result_text = f"<b>■ ペイできるまで：</b> <span style='color:#EE7700;'>{breakeven_month:.1f}ヶ月</span>"
+    result_text = f"""
+        <div style='background-color:#FFF3E0; padding: 12px 16px; border-left: 6px solid #EE7700; border-radius: 4px; font-size: 16px;'>
+            <b>■ ペイできるまで：</b>
+            <span style='color:#d84315; font-weight:bold; font-size: 22px;'>{breakeven_month:.1f}ヶ月</span>
+        </div>
+    """
 
 # -----------------------------
 # 📊 グラフ表示
