@@ -35,6 +35,9 @@ with left_col:
     st.markdown("### 🗓️ 月間固定費", unsafe_allow_html=True)
     rent = st.number_input("家賃（月）[万円][課税]", value=100, step=10)
     salary = st.number_input("人件費（月）[万円]", value=100, step=10)
+    
+    with st.expander("### 🔧 詳細設定"):
+        utilities = st.number_input("光熱費・水道代・通信費（月）[万円]", value=7, step=1)
 
     st.markdown("### 💰 初期費用", unsafe_allow_html=True)
     key_money = st.number_input("礼金 [万円][課税]", value=100, step=10)
@@ -46,7 +49,6 @@ with left_col:
 
     with st.expander("### 🔧 詳細設定"):
         utilities = st.number_input("光熱費・水道代・通信費（月）[万円]", value=7, step=1)
-        tax_rate_percent = st.number_input("消費税率 [%]", value=10, step=1)
 
     tax_rate = 1 + (tax_rate_percent / 100)
 
