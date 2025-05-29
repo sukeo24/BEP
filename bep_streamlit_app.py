@@ -38,6 +38,9 @@ with left_col:
     st.markdown("### 👥 人件費", unsafe_allow_html=True)
     salary = st.number_input("人件費（月）[万円]", value=100, step=10)
 
+    st.markdown("### 💡 その他固定費", unsafe_allow_html=True)
+    utilities = st.number_input("光熱費・水道代・通信費（月）[万円]", value=7, step=1)
+
     st.markdown("### 💰 初期費用内訳", unsafe_allow_html=True)
     key_money = st.number_input("礼金 [万円]", value=100, step=10)
     deposit = st.number_input("敷金 [万円]", value=100, step=10)
@@ -52,13 +55,14 @@ with left_col:
     tax_rate_percent = st.number_input("消費税率 [%]", value=10, step=1)
 
 # -----------------------------
-# 💹 損益分岐点計算
+# 📊 損益分岐点計算
 # -----------------------------
 tax_rate = 1 + (tax_rate_percent / 100)
 contribution_margin = 0.64
 monthly_rent = rent * tax_rate * 10000
 monthly_salary = salary * 10000
-monthly_fixed_cost = monthly_rent + monthly_salary
+monthly_utilities = utilities * 10000
+monthly_fixed_cost = monthly_rent + monthly_salary + monthly_utilities
 monthly_sales = sales * 10000
 initial_cost_yen = sum([
     key_money * tax_rate,
@@ -115,10 +119,10 @@ with right_col:
         f"""
         <div style='margin-top: 20px; padding: 12px; background-color: #f9f9f9; border-left: 5px solid #EE7700;'>
             <p style='margin: 0; color: #333; font-size: 14px;'>
-                ※ このシミュレーションでは <b>貢献利益率を 64%</b>、<b>消費税率を {tax_rate_percent}%</b>に設定しています。<br>
+                ※ このシミュレーションでは <b>貢献利益率を 64%</b>、<b>消費税率を {tax_rate_percent}%</b> に設定しています。<br>
                 <b>課税対象:</b> 家賃、礼金、仲介手数料、内装工事費、その他費用<br>
                 <b>非課税対象:</b> 敷金、保証金<br>
-                それぞれ適切に税込・税抜で処理しています。
+                また、光熱費・水道代・通信費を含む <b>その他固定費（月額 {utilities}万円）</b> も考慮しています。
             </p>
         </div>
         """,
