@@ -246,7 +246,7 @@ for idx, tab in enumerate(tabs, start=1):
                     orientation="v",
                     x=1,
                     xanchor="right",
-                    y=0.1,
+                    y=0.05,
                     yanchor="bottom",
                     font=dict(size=12, color="black"),
                     bgcolor="lightgray",  # 背景を透明に
