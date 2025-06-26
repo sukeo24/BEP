@@ -64,10 +64,15 @@ else:
         st.markdown(f"<div style='text-align:right; font-size:14px;'>初期費用合計（税抜・税込計算後）: <b>¥{int(initial_cost_display * 10000):,}</b></div>", unsafe_allow_html=True)
 
         st.markdown("### 📈 シミュレーション設定", unsafe_allow_html=True)
+        
+        # ★ ここにシナリオ選択を追加 ★
+        scenario = st.selectbox("シナリオを選択してください", ["楽観", "標準", "悲観"])
+        scenario_margins = {"楽観": 0.68, "標準": 0.64, "悲観": 0.60}
+        contribution_margin = scenario_margins[scenario]
+        
         sales = st.number_input("月間売上（税込）[万円]", value=500, step=10)
         months = st.slider("シミュレーション月数", 1, 24, value=12, step=1)
 
-    contribution_margin = 0.64
     monthly_rent = rent * tax_rate * 10000
     monthly_salary = salary * 10000
     monthly_utilities = utilities * 10000
