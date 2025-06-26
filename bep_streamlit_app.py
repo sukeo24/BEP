@@ -248,7 +248,7 @@ for idx, tab in enumerate(tabs, start=1):
                     xanchor="right",
                     y=0.1,
                     yanchor="bottom",
-                    font=dict(size=10, color="black"),
+                    font=dict(size=12, color="black"),
                     bgcolor="lightgray",  # 背景を透明に
                 )
             )
